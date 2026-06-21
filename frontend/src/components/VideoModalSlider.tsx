@@ -238,7 +238,7 @@ interface VideoModalSliderProps {
 
 export function VideoModalSlider({ isOpen, onClose, videos, initialIndex, onLikeToggle }: VideoModalSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
-  const [isMutedGlobal, setIsMutedGlobal] = useState(true);
+  const [isMutedGlobal, setIsMutedGlobal] = useState(false);
 
   if (!isOpen) return null;
 
