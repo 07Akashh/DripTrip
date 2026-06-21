@@ -26,7 +26,23 @@ export interface UploadResponse {
   video: Video;
 }
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
+const getApiBaseUrl = (): string => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return import.meta.env.VITE_API_BASE_URL;
+  }
+  
+  if (typeof window !== 'undefined') {
+    const { hostname } = window.location;
+    if (hostname !== 'localhost' && hostname !== '127.0.0.1') {
+      // In Vercel deployment, route requests to the backend service path prefix
+      return '/_/backend';
+    }
+  }
+  
+  return 'http://localhost:5001';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Helper to handle fetch responses and raise errors appropriately
